@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
 class HomePageActivity extends StatelessWidget {
   final List<Map<String, dynamic>> shoppingItems = [
     {"name": "Apples", "icon": Icons.shopping_cart},
-    {"name": "Bananas", "icon": Icons.shopping_cart},
-    {"name": "Milk", "icon": Icons.shopping_cart},
+    {"name": "Bananas", "icon": Icons.add_shopping_cart_rounded},
+    {"name": "Milk", "icon": Icons.shopping_cart_outlined},
     {"name": "Bread", "icon": Icons.shopping_cart},
     {"name": "Eggs", "icon": Icons.shopping_cart},
   ];
