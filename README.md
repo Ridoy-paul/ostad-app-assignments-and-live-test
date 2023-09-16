@@ -1,7 +1,7 @@
 # ostad_assignment_and_live_test_app
 
 Output ScreenShot
-![GitHub Logo]([https://github.com/github.png](https://github.com/Ridoy-paul/ostad-app-assignments-and-live-test/blob/module-6-live-test/module-6-live-test-output.jpeg))
+![GitHub Logo](https://github.com/github.png](https://github.com/Ridoy-paul/ostad-app-assignments-and-live-test/blob/module-6-live-test/module-6-live-test-output.jpeg))
 
 This project is a starting point for a Flutter application.
 
