@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: HomePageActivity(),
 
     );
@@ -24,15 +25,30 @@ class HomePageActivity extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(),
       body: SafeArea(
-        child: Container(
+        child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-          child: Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Welcome To My Photo Gallery!',
+                textAlign: TextAlign.left,
                 style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 10.0,),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search for Photos...',
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black87),
+                  ),
+
+                  ///labelText: 'Search for Photos...',
+
                 ),
               )
             ],
