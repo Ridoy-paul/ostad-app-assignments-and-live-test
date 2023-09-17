@@ -23,6 +23,23 @@ class HomePageActivity extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(),
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+          child: Row(
+            children: [
+              Text(
+                'Welcome To My Photo Gallery!',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              )
+            ],
+          ),
+
+        ),
+      ),
     );
   }
 
@@ -35,7 +52,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
   Widget build(BuildContext context) {
     return AppBar(
       title: Text('Photo Gallery'),
-      //centerTitle: true,
+      centerTitle: true,
     );
 
   }
