@@ -70,7 +70,7 @@ class HomePage extends StatelessWidget {
             GridView.builder(
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: 3,
               ),
               itemCount: imageUrls.length,
               itemBuilder: (BuildContext context, int index) {
@@ -131,8 +131,8 @@ class GridItem extends StatelessWidget {
           children: [
             Image.network(
               imageUrl,
-              height: 80.0,
-              width: 80.0,
+              height: 60.0,
+              width: 60.0,
               fit: BoxFit.cover,
             ),
             Padding(
