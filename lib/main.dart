@@ -84,18 +84,15 @@ class HomePage extends StatelessWidget {
             SamplePhotoItem(
               title: 'Capture The Photo',
               subtitle: 'Amazing View',
-              customIcon: Icon(Icons.add_a_photo_outlined),
             ),
 
             SamplePhotoItem(
               title: 'Sample Photo 2',
               subtitle: 'Beautiful Flowers..',
-              customIcon: Icon(Icons.ac_unit),
             ),
             SamplePhotoItem(
               title: 'My Account',
               subtitle: 'View Profile, Update Profile',
-              customIcon: Icon(Icons.account_circle),
             ),
 
             SizedBox(height: 16.0),
@@ -149,9 +146,8 @@ class GridItem extends StatelessWidget {
 class SamplePhotoItem extends StatelessWidget {
   final String title;
   final String subtitle;
-  final customIcon;
 
-  SamplePhotoItem({required this.title, required this.subtitle, this.customIcon});
+  SamplePhotoItem({required this.title, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +156,9 @@ class SamplePhotoItem extends StatelessWidget {
         ListTile(
           title: Text(title),
           subtitle: Text(subtitle),
-          leading: customIcon,
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage('https://avatars.githubusercontent.com/u/53790501?v=4'),
+          ),
         ),
         DividerItem( height: 5.0, thickness: 1.0,),
       ],
