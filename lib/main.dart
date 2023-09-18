@@ -80,18 +80,19 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            SizedBox(height: 16.0),
-            SamplePhoto(
+            SizedBox(height: 30.0),
+            SamplePhotoItem(
               title: 'Capture The Photo',
               subtitle: 'Amazing View',
               customIcon: Icon(Icons.add_a_photo_outlined),
             ),
-            SamplePhoto(
+
+            SamplePhotoItem(
               title: 'Sample Photo 2',
               subtitle: 'Beautiful Flowers..',
               customIcon: Icon(Icons.ac_unit),
             ),
-            SamplePhoto(
+            SamplePhotoItem(
               title: 'My Account',
               subtitle: 'View Profile, Update Profile',
               customIcon: Icon(Icons.account_circle),
@@ -145,19 +146,39 @@ class GridItem extends StatelessWidget {
   }
 }
 
-class SamplePhoto extends StatelessWidget {
+class SamplePhotoItem extends StatelessWidget {
   final String title;
   final String subtitle;
   final customIcon;
 
-  SamplePhoto({required this.title, required this.subtitle, this.customIcon});
+  SamplePhotoItem({required this.title, required this.subtitle, this.customIcon});
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(title),
-      subtitle: Text(subtitle),
-      leading: customIcon,
+    return Column(
+      children: [
+        ListTile(
+          title: Text(title),
+          subtitle: Text(subtitle),
+          leading: customIcon,
+        ),
+        DividerItem( height: 5.0, thickness: 1.0,),
+      ],
+    );
+  }
+}
+
+class DividerItem extends StatelessWidget {
+ final double height;
+ final double thickness;
+ DividerItem({required this.height, required this.thickness});
+
+  @override
+  Widget build(BuildContext context) {
+    return Divider( // Divider
+      color: Colors.black12,
+      height: height,
+      thickness: thickness,
     );
   }
 }
