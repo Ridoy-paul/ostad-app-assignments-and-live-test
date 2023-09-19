@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key});
-
   final List<String> imageUrls = [
     "https://cdn-ipieb.nitrocdn.com/XUuAIAbfSYJmvfScsdokbEdfsfJmcNEb/assets/images/optimized/rev-9f5d252/wp-content/uploads/2023/05/1-2.png",
     "https://cdn-ipieb.nitrocdn.com/XUuAIAbfSYJmvfScsdokbEdfsfJmcNEb/assets/images/optimized/rev-9f5d252/wp-content/uploads/2023/05/sme.png",
@@ -85,7 +84,6 @@ class HomePage extends StatelessWidget {
               title: 'Capture The Photo',
               subtitle: 'Amazing View',
             ),
-
             SamplePhotoItem(
               title: 'Sample Photo 2',
               subtitle: 'Beautiful Flowers..',
