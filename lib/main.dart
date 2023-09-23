@@ -5,103 +5,181 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      title: 'E-Shop',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(3),
+            ),
+            textStyle: TextStyle(
+              fontSize: 12,
+            )
+          )
+        )
+      ),
+      home: ProductList(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  HomePage({Key? key});
-  final List<String> imageUrls = [
-    "https://cdn-ipieb.nitrocdn.com/XUuAIAbfSYJmvfScsdokbEdfsfJmcNEb/assets/images/optimized/rev-9f5d252/wp-content/uploads/2023/05/1-2.png",
-    "https://cdn-ipieb.nitrocdn.com/XUuAIAbfSYJmvfScsdokbEdfsfJmcNEb/assets/images/optimized/rev-9f5d252/wp-content/uploads/2023/05/sme.png",
-    "https://cdn-ipieb.nitrocdn.com/XUuAIAbfSYJmvfScsdokbEdfsfJmcNEb/assets/images/optimized/rev-9f5d252/wp-content/uploads/2023/05/exchange-rate.png",
-    "https://cdn-ipieb.nitrocdn.com/XUuAIAbfSYJmvfScsdokbEdfsfJmcNEb/assets/images/optimized/rev-9f5d252/wp-content/uploads/2023/05/5.png",
-    "https://cdn-ipieb.nitrocdn.com/XUuAIAbfSYJmvfScsdokbEdfsfJmcNEb/assets/images/optimized/rev-9f5d252/wp-content/uploads/2023/05/merchant.png",
-    "https://cdn-ipieb.nitrocdn.com/XUuAIAbfSYJmvfScsdokbEdfsfJmcNEb/assets/images/optimized/rev-9f5d252/wp-content/uploads/2023/05/supplier.png",
+class ProductList extends StatefulWidget {
+  @override
+  _ProductListState createState() => _ProductListState();
+}
+
+class _ProductListState extends State<ProductList> {
+
+  List<Product> products = [
+    Product(name: "Smartphone", price: 599),
+    Product(name: "Laptop", price: 999),
+    Product(name: "Tablet", price: 299),
+    Product(name: "Headphones", price: 149),
+    Product(name: "Smartwatch", price: 199),
+    Product(name: "Camera", price: 499),
+    Product(name: "Television", price: 799),
+    Product(name: "Gaming Console", price: 399),
+    Product(name: "Bluetooth Speaker", price: 89),
+    Product(name: "External Hard Drive", price: 129),
+    Product(name: "Monitor", price: 249),
+    Product(name: "Printer", price: 179),
+    Product(name: "Wireless Mouse", price: 29),
+    Product(name: "Keyboard", price: 49),
+    Product(name: "VR Headset", price: 299),
+    Product(name: "Home Theater System", price: 449),
+    Product(name: "Coffee Maker", price: 79),
+    Product(name: "Microwave Oven", price: 129),
+    Product(name: "Blender", price: 39),
+    Product(name: "Toaster", price: 29),
   ];
 
-  final List<String> captions = [
-    "Super Shop",
-    "SME Business",
-    "Trading Business",
-    "Export-Import",
-    "Dealer Business",
-    "Supplier Business",
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Photo Gallery'),
+        title: Text('Product List'),
         centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Welcome To My Photo Gallery!',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
+        actions: <Widget>[
+          Container(
+            child: IconButton(
+              tooltip: 'Contact Us',
+              color: Colors.white,
+              icon: Icon(Icons.wifi_calling_sharp, size: 25,),
+              onPressed: () {
+                print("Contact Us");
+              },
             ),
-            SizedBox(height: 16.0),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Search for Photos...',
-                border: OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 0, horizontal: 2),
+            child: IconButton(
+              tooltip: 'Account',
+              color: Colors.white,
+              icon: Icon(Icons.account_circle, size: 25,),
+              onPressed: () {
+                print("Account");
+              },
+            ),
+          ),
+
+        ],
+      ),
+
+      body: ListView.builder(
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          return ProductItem(
+            product: products[index],
+            onBuyNow: () {
+              setState(() {
+                if (products[index].counter < 5) {
+                  products[index].incrementCounter();
+                }
+                if (products[index].counter == 5) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Congratulations!'),
+                        content: Text(
+                            'You\'ve bought 5 ${products[index].name}!'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              });
+            },
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CartPage(products: products),
+            ),
+          );
+        },
+        child: Icon(Icons.shopping_cart),
+        backgroundColor: Colors.deepOrange,
+      ),
+    );
+  }
+}
+
+class Product {
+  final String name;
+  final int price;
+  int counter = 0;
+
+  Product({required this.name, required this.price});
+  void incrementCounter() {
+    counter++;
+  }
+}
+
+class ProductItem extends StatelessWidget {
+  final Product product;
+  final Function() onBuyNow;
+
+  ProductItem({required this.product, required this.onBuyNow});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(product.name),
+      subtitle: Text('${product.price} TK'),
+      trailing: Container(
+        height: 200,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text('Counter ${product.counter}'),
+            SizedBox(
+              height: 30,
+              child: ElevatedButton(
+                onPressed: onBuyNow,
+                child: Text(
+                    'Buy Now',
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ),
-            SizedBox(height: 16.0),
-            GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-              ),
-              itemCount: imageUrls.length,
-              itemBuilder: (BuildContext context, int index) {
-                return GridItem(
-                  imageUrl: imageUrls[index],
-                  caption: captions[index],
-                );
-              },
-            ),
-            SizedBox(height: 30.0),
-            SamplePhotoItem(
-              title: 'Capture The Photo',
-              subtitle: 'Amazing View',
-            ),
-            SamplePhotoItem(
-              title: 'Sample Photo 2',
-              subtitle: 'Beautiful Flowers..',
-            ),
-            SamplePhotoItem(
-              title: 'My Account',
-              subtitle: 'View Profile, Update Profile',
-            ),
-
-            SizedBox(height: 16.0),
-            Center(
-              child: FloatingActionButton(
-                onPressed: () {
-                  MySnackbar.showSnackBar(context, "Photos Uploaded Successfully!");
-                },
-                child: const Icon(Icons.upload),
-              ),
-            ),
           ],
         ),
       ),
@@ -109,30 +187,30 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class GridItem extends StatelessWidget {
-  final String imageUrl;
-  final String caption;
+class CartPage extends StatelessWidget {
+  final List<Product> products;
 
-  GridItem({required this.imageUrl, required this.caption});
+  CartPage({required this.products});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        MySnackbar.showSnackBar(context, caption);
-      },
-      child: Card(
+    int totalBought = products.fold(0, (sum, product) => sum + product.counter);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Cart Page'),
+      ),
+      body: Center(
         child: Column(
-          children: [
-            Image.network(
-              imageUrl,
-              height: 60.0,
-              width: 60.0,
-              fit: BoxFit.cover,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Total Products Bought:',
+              style: TextStyle(fontSize: 20),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(caption),
+            Text(
+              '$totalBought',
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -141,54 +219,3 @@ class GridItem extends StatelessWidget {
   }
 }
 
-class SamplePhotoItem extends StatelessWidget {
-  final String title;
-  final String subtitle;
-
-  SamplePhotoItem({required this.title, required this.subtitle});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListTile(
-          title: Text(title),
-          subtitle: Text(subtitle),
-          leading: CircleAvatar(
-            backgroundImage: NetworkImage('https://avatars.githubusercontent.com/u/53790501?v=4'),
-          ),
-        ),
-        DividerItem( height: 5.0, thickness: 1.0,),
-      ],
-    );
-  }
-}
-
-class DividerItem extends StatelessWidget {
- final double height;
- final double thickness;
- DividerItem({required this.height, required this.thickness});
-
-  @override
-  Widget build(BuildContext context) {
-    return Divider( // Divider
-      color: Colors.black12,
-      height: height,
-      thickness: thickness,
-    );
-  }
-}
-
-class MySnackbar {
-  static void showSnackBar(BuildContext context, String mesage) {
-    final snackBar = SnackBar(
-      content: Text(mesage),
-      duration: Duration(seconds: 1),
-      action: SnackBarAction(
-        label: 'Dismiss',
-        onPressed: () {},
-      ),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-}

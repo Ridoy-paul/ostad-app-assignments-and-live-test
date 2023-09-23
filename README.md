@@ -1,3 +1,5 @@
-# Module 6 Assignment Output:
+# Module 7 Assignments:
 
-![Finale Output](images/module-6-finale-output.jpeg)
+![first output](asset/images/module-7-output-1.png)
+![second output](asset/images/module-7-output-2.png)
+![3rd output](asset/images/module-7-output-3.png)
