@@ -5,102 +5,138 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'counter App',
+      home: HomeScreen(),
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(3),
-            ),
-            textStyle: TextStyle(
-              fontSize: 12,
-            ),
-            backgroundColor: Colors.deepOrange,
-            foregroundColor: Colors.white,
-          )
-        )
+        primarySwatch: Colors.deepPurple,
       ),
-      home: CounterAppScreen(),
     );
   }
 }
 
-class CounterAppScreen extends StatefulWidget {
-  @override
-  _CounterAppState createState() => _CounterAppState();
-}
-
-class _CounterAppState extends State<CounterAppScreen> {
-  int count = 0;
-
-  void _incrementCount() {
-    setState(() {
-      count++;
-      if (count >= 5) {
-        _showDialog();
-      }
-    });
-  }
-
-  void _decrementCount() {
-    setState(() {
-      if (count > 0) {
-        count--;
-      }
-    });
-  }
-
-  void _showDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Center(child: Text("Button pressed $count times."),),
-          actions: <Widget>[
-            TextButton(onPressed: (){
-              Navigator.of(context).pop();
-            }, child: Text("close"))
-          ],
-        );
-      },
-    );
-  }
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Orientation screenOrientation = MediaQuery.orientationOf(context);
+    print(screenOrientation);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Counter App'),
+        title: Text("Profile"),
       ),
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          return _BuildScreen(orientation, context);
 
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Count:", style: TextStyle(fontSize: 20),),
-              Text("$count", style: TextStyle(fontSize: 55, fontWeight: FontWeight.bold),),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(onPressed: (){
-                    _decrementCount();
-                  }, child: Icon(Icons.remove)),
-                  SizedBox(width: 20,),
-                  ElevatedButton(onPressed: (){
-                    _incrementCount();
-                  }, child: Icon(Icons.add)),
-                ],
-              )
-            ],
-          ),
-        ),
+        },
       ),
     );
   }
+
+  Widget _BuildScreen(Orientation orientation, context) {
+    Size screenSize = MediaQuery.sizeOf(context);
+    if(orientation == Orientation.portrait) {
+      return SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              AspectRatio(
+                aspectRatio: 16 / 16,
+                child: Padding(
+                  padding: EdgeInsets.all(40),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(250),
+                    child: Image.network(
+                      'https://avatars.githubusercontent.com/u/53790501?v=4',
+                        fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+
+              Text(
+                "Ridoy Paul",
+                style: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 5,),
+              Text("I'm Ridoy Chandra Paul. I'm currently working on Web App Development. For Web Development, I use Laravel which is a framework of PHP."),
+
+
+            ],
+          ),
+        ),
+      );
+    }
+    else {
+      return SafeArea(
+          child: SingleChildScrollView(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: screenSize.width * 0.38,
+                    child: Padding(
+                      padding: EdgeInsets.all(40),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(150),
+                        child: Image.network(
+                          'https://avatars.githubusercontent.com/u/53790501?v=4',
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                    child: SizedBox(
+                      width: screenSize.width * 0.60,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Ridoy Chandra Paul",
+                            style: TextStyle(
+                              fontSize: 35,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 5,),
+                          Text("I'm Ridoy Chandra Paul. I'm currently working on Web App Development. For Web Development, I use Laravel which is a framework of PHP."),
+                          AspectRatio(
+                            aspectRatio: 4/4,
+                            child: Container(
+                              color: Colors.red,
+                              child: Image.network(
+                                  'https://images.idgesg.net/images/article/2017/10/wireless_network_internet_of_things_iot_thinkstock_853701554_3x2-100740688-large.jpg?auto=webp&quality=85,70',
+                              fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+
+                ],
+
+            ),
+          ),
+      );
+    }
+  }
+
+
 }
+
