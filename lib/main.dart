@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        primarySwatch: Colors.blue,
       ),
     );
   }
@@ -35,7 +35,6 @@ class HomeScreen extends StatelessWidget {
       body: OrientationBuilder(
         builder: (context, orientation) {
           return _BuildScreen(orientation, context);
-
         },
       ),
     );
@@ -159,29 +158,49 @@ class HomeScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 5,),
                       Text("I'm Ridoy Chandra Paul. I'm currently working on Web App Development. For Web Development, I use Laravel which is a framework of PHP."),
-                      AspectRatio(
-                        aspectRatio: 4/4,
-                        child: Container(
-                          color: Colors.red,
-                          child: Image.network(
-                            'https://images.idgesg.net/images/article/2017/10/wireless_network_internet_of_things_iot_thinkstock_853701554_3x2-100740688-large.jpg?auto=webp&quality=85,70',
-                            fit: BoxFit.cover,
+                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: screenSize.height * 0.50,
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4,
+                            mainAxisSpacing: 8.0,
+                            crossAxisSpacing: 8.0,
                           ),
+                          itemCount: brandList.length,
+                          itemBuilder: (context, index) {
+                            return GridTile(
+                              child: Card(
+                                elevation: 6,
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25)
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Center(
+                                    child: Image.network(
+                                      brandList[index],
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),
               )
-
             ],
-
           ),
         ),
       );
     }
   }
-
 
 }
 
