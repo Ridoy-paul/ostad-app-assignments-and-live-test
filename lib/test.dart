@@ -22,8 +22,6 @@ class MyApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
     Orientation screenOrientation = MediaQuery.orientationOf(context);
@@ -43,19 +41,6 @@ class HomeScreen extends StatelessWidget {
 
   Widget _BuildScreen(Orientation orientation, context) {
     Size screenSize = MediaQuery.sizeOf(context);
-
-    final List<String> brandList = [
-      'https://topmobileinfo.com/images/brands/apple.jpg',
-      'https://topmobileinfo.com/images/brands/samsung.jpg',
-      'https://topmobileinfo.com/images/brands/xiaomi.jpg',
-      'https://topmobileinfo.com/images/brands/oneplus.png',
-      'https://topmobileinfo.com/images/brands/sony.jpg',
-      'https://topmobileinfo.com/images/brands/vivo.png',
-      'https://topmobileinfo.com/images/brands/realme.png',
-      'https://topmobileinfo.com/images/brands/walton.png',
-      'https://topmobileinfo.com/images/brands/infinix.png',
-    ];
-
     if(orientation == Orientation.portrait) {
       return SafeArea(
         child: SingleChildScrollView(
@@ -64,7 +49,7 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               AspectRatio(
-                aspectRatio: 16 / 16,
+                aspectRatio: 16 / 12,
                 child: Padding(
                   padding: EdgeInsets.all(20),
                   child: ClipRRect(
@@ -76,41 +61,47 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                "Ridoy Paul",
-                style: TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold,
+              AspectRatio(
+                aspectRatio: 16 / 5,
+                child: Column(
+                  children: [
+                    Text(
+                      "Ridoy Paul",
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 5,),
+                    Text("I'm Ridoy Chandra Paul. I'm currently working on Web App Development. For Web Development, I use Laravel which is a framework of PHP."),
+
+                  ],
                 ),
               ),
-              SizedBox(height: 5,),
-              Text("I'm Ridoy Chandra Paul. I'm currently working on Web App Development. For Web Development, I use Laravel which is a framework of PHP."),
-              SizedBox(height: 10,),
+
+
+
+
               AspectRatio(
-                aspectRatio: 16 / 10,
+                aspectRatio: 16 / 6,
                 child: GridView.builder(
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 8.0,
-                    crossAxisSpacing: 8.0,
+                    crossAxisCount: 3, // Number of columns in the grid
+                    mainAxisSpacing: 8.0, // Spacing between rows
+                    crossAxisSpacing: 8.0, // Spacing between columns
+                    //childAspectRatio: 1.0, // Aspect ratio (width/height) of each grid item
                   ),
-                  itemCount: brandList.length,
+                  itemCount: 10, // Number of items in the grid
                   itemBuilder: (context, index) {
+                    // Build each grid item
                     return GridTile(
-                      child: Card(
-                        elevation: 6,
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25)
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Center(
-                            child: Image.network(
-                              brandList[index],
-                              fit: BoxFit.cover,
-                            ),
+                      child: Container(
+                        color: Colors.blue, // Color of the grid item
+                        child: Center(
+                          child: Text(
+                            'Item $index',
+                            style: TextStyle(color: Colors.red),
                           ),
                         ),
                       ),
@@ -118,6 +109,32 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
               ),
+
+
+
+              // Flexible(
+              //   fit: FlexFit.tight,
+              //   flex: 3,
+              //   child: Container(
+              //     color: Colors.amber,
+              //     width: MediaQuery.sizeOf(context).width,
+              //   ),
+              // ),
+              // Flexible(
+              //   flex: 7,
+              //   child: Column(
+              //     children: [
+              //       Flexible(
+              //         child: Container(
+              //           color: Colors.red,
+              //           width: MediaQuery.sizeOf(context).width,
+              //         ),
+              //       ),
+              //       SizedBox(height: 50,),
+              //     ],
+              //   ),
+              // ),
+
             ],
           ),
         ),
