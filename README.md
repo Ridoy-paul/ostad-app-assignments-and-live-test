@@ -1,4 +1,4 @@
-# Module 7 Live Test:
-# Counter App:
-![Output Screen one](asset/images/counter-app-output-1.png)
-![Output Screen two](asset/images/counter-app-output-2.png)
+# Module 8 Assignment:
+# Profile App:
+![Output Screen one](asset/images/module-8-assignment-output-01.jpeg)
+![Output Screen two](asset/images/module-8-assignment-output-02.jpeg)
